@@ -10,15 +10,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class CarMake(models.Model):
     name = models.CharField(max_length=100)
-    description = models.CharField(max_length=1000)
-   
+    description = models.TextField()
+
     def __str__(self):
         return self.name
 
 
 class CarModel(models.Model):
-    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
-    name = models.CharField(max_length=100)
     SEDAN = "sedan"
     SUV = "suv"
     WAGON = "wagon"
@@ -27,14 +25,15 @@ class CarModel(models.Model):
         (SUV, "SUV"),
         (WAGON, "Wagon"),
     ]
+
+    car_make = models.ForeignKey(CarMake, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     car_type = models.CharField(
         max_length=5,
         choices=CAR_TYPE_CHOICES,
         default=SEDAN,
     )
-    year = models.IntegerField(
-        validators=[MaxValueValidator(2023), MinValueValidator(2015)]
-    )
+    year = models.IntegerField()
 
     def __str__(self):
         return self.name
