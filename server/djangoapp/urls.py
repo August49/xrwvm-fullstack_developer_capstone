@@ -17,7 +17,7 @@ urlpatterns = [
     ),
     path(
         "dealer/<int:dealer_id>",
-        view=views.get_dealer_details, 
+        view=views.get_dealer_details,
         name="dealer_details"
     ),
     path(
